@@ -5,6 +5,7 @@ data class StoryListResponse(
     val message: String,
     val listStory: List<StoryItem>
 )
+
 data class AddStoryResponse(
     val error: Boolean,
     val message: String

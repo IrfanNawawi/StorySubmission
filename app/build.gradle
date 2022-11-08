@@ -20,7 +20,7 @@ android {
     }
 
     buildTypes {
-        debug{
+        debug {
             buildConfigField "String", "BASE_URL", '"https://story-api.dicoding.dev/v1/"'
             buildConfigField "String", "PREF_NAME", '"usr_login"'
         }

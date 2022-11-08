@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">StorySubmission</string>
+    <string name="txt_login_intro">Halo,\nSilahkan login di sini</string>
+    <string name="txt_register_intro">Halo,\nSilahkan register di sini</string>
+    <string name="txt_username">Username</string>
+    <string name="txt_username_invalid">Username Tidak Valid</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_email_invalid">Email Tidak Valid</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_password_invalid">Email Tidak Valid</string>
+    <string name="txt_login_new_register">Belum punya akun ? </string>
+    <string name="txt_login_new_register_click">klik disini</string>
+    <string name="txt_login">Login</string>
+    <string name="txt_login_email">Masukkan email terdaftar</string>
+    <string name="txt_login_password">Masukkan password</string>
+    <string name="txt_register">Register</string>
+    <string name="txt_register_email">Masukkan email</string>
+    <string name="txt_register_username">Masukkan Username</string>
+    <string name="txt_hello">Halo,</string>
+    <string name="txt_name_user">KlikDokter</string>
+    <string name="txt_add_story">Tambah Story</string>
+    <string name="txt_delete">Hapus</string>
+    <string name="txt_update">Rubah</string>
+    <string name="txt_save">Simpan</string>
+    <string name="txt_cancel">Batalkan</string>
 </resources>

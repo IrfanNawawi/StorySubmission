@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <font
+        android:font="@font/mulish_extralight_200"
+        android:fontStyle="normal"
+        android:fontWeight="200"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_extralightitalic_200"
+        android:fontStyle="italic"
+        android:fontWeight="200"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_light_300"
+        android:fontStyle="normal"
+        android:fontWeight="300"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_lightitalic_300"
+        android:fontStyle="italic"
+        android:fontWeight="300"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_regular_400"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_italic_400"
+        android:fontStyle="italic"
+        android:fontWeight="400"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_medium_500"
+        android:fontStyle="normal"
+        android:fontWeight="500"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_mediumitalic_500"
+        android:fontStyle="italic"
+        android:fontWeight="500"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_semibold_600"
+        android:fontStyle="normal"
+        android:fontWeight="600"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_semibolditalic_600"
+        android:fontStyle="italic"
+        android:fontWeight="600"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_bold_700"
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_bolditalic_700"
+        android:fontStyle="italic"
+        android:fontWeight="700"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_extrabold_800"
+        android:fontStyle="normal"
+        android:fontWeight="800"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_extrabolditalic_800"
+        android:fontStyle="italic"
+        android:fontWeight="800"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_black_900"
+        android:fontStyle="normal"
+        android:fontWeight="900"
+        tools:targetApi="o" />
+    <font
+        android:font="@font/mulish_blackitalic_900"
+        android:fontStyle="italic"
+        android:fontWeight="900"
+        tools:targetApi="o" />
+</font-family>

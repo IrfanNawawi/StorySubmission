@@ -1,53 +1,45 @@
 package id.heycoding.storysubmission
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import id.heycoding.storysubmission.data.remote.WebServices
-import io.reactivex.android.schedulers.AndroidSchedulers
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import id.heycoding.storysubmission.databinding.ActivityMainBinding
+import id.heycoding.storysubmission.ui.auth.login.LoginFragment
+import id.heycoding.storysubmission.ui.auth.register.RegisterFragment
+import id.heycoding.storysubmission.utils.UserLoginPreferences
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
 
-    private val tvLog: TextView by lazy { findViewById(R.id.txt_log) }
+    private var activityMainBinding: ActivityMainBinding? = null
+    lateinit var userLoginPref: UserLoginPreferences
     private val disposables = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(activityMainBinding?.root)
+        supportActionBar?.hide()
+        checkSession()
+    }
 
-        val services = WebServices.create()
-        tvLog.setOnClickListener {
-            val userDisposable = services.getAllStories()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe {
-                    println("loading.....")
-                    tvLog.text = "loading...."
-                }
-                .doOnError {
-                    println("error anjay -> ${it.message}")
-                }
-                .subscribe({
-                    val isSuccess = it.isSuccessful
-                    if (isSuccess) {
-                        println("sukses nih")
-                        tvLog.text = "sukses nih"
-                    } else {
-                        tvLog.text = "error coy"
-                    }
-                }, {
-                    println("error di rx")
-                    it.printStackTrace()
-                })
+    fun moveToFragment(fragment: Fragment) {
+        this.supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer, fragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
+    }
 
-            disposables.add(userDisposable)
-        }
+    private fun checkSession() {
+//        if (!userLoginPref.getLoginData().isLogin) {
+        moveToFragment(RegisterFragment())
+//        } else {
+//            moveToFragment(HomeFragment())
+//        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         disposables.dispose()
+        activityMainBinding = null
     }
 }

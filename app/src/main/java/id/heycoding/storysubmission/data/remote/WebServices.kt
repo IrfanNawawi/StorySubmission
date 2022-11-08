@@ -5,10 +5,8 @@ import com.google.gson.GsonBuilder
 import id.heycoding.storysubmission.data.remote.response.auth.UserLoginResponse
 import id.heycoding.storysubmission.data.remote.response.auth.UserRegisterResponse
 import id.heycoding.storysubmission.data.remote.response.stories.StoryListResponse
-import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
