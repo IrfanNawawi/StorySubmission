@@ -1,5 +1,6 @@
 package id.heycoding.storysubmission.ui.auth.login
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -18,24 +19,22 @@ import id.heycoding.storysubmission.ui.auth.AuthViewModel
 import id.heycoding.storysubmission.ui.auth.register.RegisterFragment
 import id.heycoding.storysubmission.ui.home.HomeFragment
 import id.heycoding.storysubmission.utils.Preferences
-import io.reactivex.disposables.CompositeDisposable
 
 class LoginFragment : Fragment() {
 
-    private var loginFragmentBinding: FragmentLoginBinding? = null
-    private lateinit var authVM: AuthViewModel
+    private var fragmentLoginBinding: FragmentLoginBinding? = null
+    private lateinit var authViewModel: AuthViewModel
     private lateinit var pref: SharedPreferences
     private lateinit var userLoginPref: Preferences
-    private val disposables = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        loginFragmentBinding = FragmentLoginBinding.inflate(inflater, container, false)
+        fragmentLoginBinding = FragmentLoginBinding.inflate(inflater, container, false)
         initVM()
         initPref()
-        return loginFragmentBinding!!.root
+        return fragmentLoginBinding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,13 +43,20 @@ class LoginFragment : Fragment() {
         initView()
     }
 
+    private fun initVM() {
+        authViewModel = ViewModelProvider(requireActivity())[AuthViewModel::class.java]
+
+        authViewModel.isLoading.observe(viewLifecycleOwner) { showLoading(it) }
+        authViewModel.message.observe(viewLifecycleOwner) { showMessage(it) }
+    }
+
     private fun initPref() {
         pref = requireContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         userLoginPref = Preferences(requireContext())
     }
 
     private fun initView() {
-        loginFragmentBinding?.apply {
+        fragmentLoginBinding?.apply {
             btnLogin.setOnClickListener {
                 showLoading(true)
                 showMessage("Loging in, please wait")
@@ -63,11 +69,27 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun doLogin() {
-        val userEmail = loginFragmentBinding?.edtLoginEmail?.text.toString().trim()
-        val userPassword = loginFragmentBinding?.edtLoginPassword?.text.toString().trim()
+    private fun validateAndLogin() {
+        when {
+            fragmentLoginBinding?.edtLoginEmail?.text!!.isBlank() -> {
+                fragmentLoginBinding?.edtLoginEmail?.error = "Email tidak boleh kosong"
+                return
+            }
+            fragmentLoginBinding?.edtLoginPassword?.text!!.isBlank() -> {
+                fragmentLoginBinding?.edtLoginPassword!!.error = "Password tidak boleh kosong"
+                return
+            }
+        }
 
-        authVM.apply {
+        doLogin()
+
+    }
+
+    private fun doLogin() {
+        val userEmail = fragmentLoginBinding?.edtLoginEmail?.text.toString().trim()
+        val userPassword = fragmentLoginBinding?.edtLoginPassword?.text.toString().trim()
+
+        authViewModel.apply {
             doLogin(userEmail, userPassword)
             userLogin.observe(viewLifecycleOwner) {
                 if (it != null) {
@@ -83,7 +105,15 @@ class LoginFragment : Fragment() {
                     Log.d("LoginFragment", "doLogin: $currentUser")
                     userLoginPref.setUserLogin(currentUser)
 
-                    Log.i("LoginFragment", "doLogin: $it")
+                    AlertDialog.Builder(requireContext()).apply {
+                        setTitle("Login Succesfully")
+                        setMessage("Logged in as ${it.name}!")
+                        setPositiveButton("Ok") { _, _ ->
+                            (activity as MainActivity).moveToFragment(HomeFragment())
+                        }
+                        create()
+                        show()
+                    }
                 }
 
             }
@@ -91,31 +121,8 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun initVM() {
-        authVM = ViewModelProvider(requireActivity())[AuthViewModel::class.java]
-
-        authVM.isLoading.observe(viewLifecycleOwner) { showLoading(it) }
-        authVM.message.observe(viewLifecycleOwner) { showMessage(it) }
-    }
-
-    private fun validateAndLogin() {
-        when {
-            loginFragmentBinding?.edtLoginEmail?.text!!.isBlank() -> {
-                loginFragmentBinding?.edtLoginEmail?.error = "Username is required"
-                return
-            }
-            loginFragmentBinding?.edtLoginPassword?.text!!.isBlank() -> {
-                loginFragmentBinding?.edtLoginPassword!!.error = "Password is required"
-                return
-            }
-        }
-        //doLogin
-        doLogin()
-
-    }
-
     private fun showLoading(isLoading: Boolean) {
-        loginFragmentBinding?.pgLogin!!.visibility = if (isLoading) View.VISIBLE else View.GONE
+        fragmentLoginBinding?.pgLogin!!.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showMessage(message: String) {
@@ -124,7 +131,6 @@ class LoginFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        disposables.dispose()
-        loginFragmentBinding = null
+        fragmentLoginBinding = null
     }
 }

@@ -2,18 +2,17 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/loginMotion"
+    android:id="@+id/login_motion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    app:layoutDescription="@xml/fragment_login_scene2">
+    app:layoutDescription="@xml/fragment_login_scene">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/ll_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +24,7 @@
         <TextView
             android:id="@+id/tv_header_login"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:fontFamily="@font/mulish_extrabold_800"
             android:text="@string/txt_login_intro"
@@ -54,6 +53,7 @@
                 android:id="@+id/edt_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="true"
                 android:fontFamily="@font/mulish_semibold_600"
                 android:hint="@string/txt_email"
                 android:inputType="textEmailAddress"
@@ -121,7 +121,7 @@
         android:layout_width="1dp"
         android:layout_height="64dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="50dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,8 +1,8 @@
 package id.heycoding.storysubmission.data.remote.response.auth
 
 data class AuthSession(
-    val name: String,
-    val token: String,
-    val userId: String,
-    val isLogin: Boolean
+    var name: String,
+    var token: String,
+    var userId: String,
+    var isLogin: Boolean
 )

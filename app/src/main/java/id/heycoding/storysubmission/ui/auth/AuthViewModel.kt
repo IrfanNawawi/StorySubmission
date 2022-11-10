@@ -17,6 +17,9 @@ class AuthViewModel : ViewModel() {
     private val _userLogin = MutableLiveData<UserLoginResult>()
     val userLogin: LiveData<UserLoginResult> = _userLogin
 
+    private val _isError = MutableLiveData<Boolean>()
+    val isError: LiveData<Boolean> = _isError
+
     private val _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
 
@@ -37,9 +40,9 @@ class AuthViewModel : ViewModel() {
                     if (!response.isSuccessful) {
                         _message.value = response.message()
                     }
-                    _userLogin.value = response.body()?.loginResult
-                    Log.d("LoginFragment", "subscribe: ${_userLogin.value}")
+                    _isError.value = response.body()?.error
                     _message.value = response.body()?.message
+                    _userLogin.value = response.body()?.loginResult
                 }
 
                 override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
@@ -62,6 +65,7 @@ class AuthViewModel : ViewModel() {
                     if (!response.isSuccessful) {
                         _message.value = response.message()
                     }
+                    _isError.value = response.body()?.error
                     _message.value = response.body()?.message
                 }
 

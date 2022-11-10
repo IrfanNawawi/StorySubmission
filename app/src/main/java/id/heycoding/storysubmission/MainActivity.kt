@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     private var activityMainBinding: ActivityMainBinding? = null
 //    lateinit var userLoginPref: Preferences
-    private val disposables = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +48,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        disposables.dispose()
         activityMainBinding = null
     }
 }

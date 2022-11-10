@@ -25,7 +25,7 @@ interface WebServices {
     fun loginUser(
         @Field("email") email: String,
         @Field("password") password: String
-    ): StoryResponse<UserLoginResponse>
+    ): Call<UserLoginResponse>
 
     @FormUrlEncoded
     @POST(EndPoint.User.REGISTER)

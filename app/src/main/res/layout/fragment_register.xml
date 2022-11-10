@@ -2,16 +2,20 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_motion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/register_fragment_scene"
-    android:padding="16dp">
+    android:padding="16dp"
+    app:layoutDescription="@xml/fragment_register_scene">
 
     <LinearLayout
         android:id="@+id/ll_register"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Space
             android:layout_width="match_parent"
@@ -33,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:elevation="10dp"
+            android:labelFor="@id/edt_register_username"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
@@ -47,11 +52,13 @@
                 android:id="@+id/edt_register_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:fontFamily="@font/mulish_semibold_600"
                 android:hint="@string/txt_username"
-                android:clickable="true"
                 android:inputType="textEmailAddress"
-                android:textCursorDrawable="@color/purple_500" />
+                android:textCursorDrawable="@color/purple_500"
+                tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -61,15 +68,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:elevation="10dp"
+            android:labelFor="@id/edt_register_email"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:errorContentDescription="@string/txt_email_invalid"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayoutUsername"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutUsername">
 
             <id.heycoding.storysubmission.ui.auth.customview.EmailCustomView
                 android:id="@+id/edt_register_email"
@@ -78,7 +86,8 @@
                 android:fontFamily="@font/mulish_semibold_600"
                 android:hint="@string/txt_email"
                 android:inputType="textEmailAddress"
-                android:textCursorDrawable="@color/purple_500" />
+                android:textCursorDrawable="@color/purple_500"
+                tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -88,6 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:elevation="10dp"
+            android:labelFor="@id/edt_register_password"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
@@ -106,7 +116,7 @@
                 android:hint="@string/txt_password"
                 android:inputType="textPassword"
                 android:textCursorDrawable="@color/purple_500"
-                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -115,7 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="50dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +135,7 @@
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/bg_btn_primary"
         android:fontFamily="@font/mulish_bold_700"
         android:gravity="center"
