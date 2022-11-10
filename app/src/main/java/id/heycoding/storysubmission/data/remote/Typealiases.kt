@@ -1,7 +1,5 @@
 package id.heycoding.storysubmission.data.remote
 
-import id.heycoding.storysubmission.data.remote.response.BaseResponse
-import io.reactivex.Observable
-import retrofit2.Response
+import retrofit2.Call
 
-typealias StoryResponse<T> = Observable<Response<BaseResponse<T>>>
+typealias StoryResponse<T> = Call<T>

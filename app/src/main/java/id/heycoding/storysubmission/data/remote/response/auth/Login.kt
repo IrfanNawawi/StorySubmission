@@ -7,5 +7,7 @@ data class UserLoginResult(
 )
 
 data class UserLoginResponse(
+    val error: Boolean,
     val loginResult: UserLoginResult,
+    val message: String
 )

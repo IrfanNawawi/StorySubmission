@@ -1,4 +1,4 @@
-package id.heycoding.storysubmission.ui.auth.login
+package id.heycoding.storysubmission.ui.auth.customview
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,9 +11,8 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import id.heycoding.storysubmission.R
 
-class LoginPasswordCustomView : AppCompatEditText {
+class PasswordCustomView : AppCompatEditText {
     constructor(context: Context) : super(context) {
         init()
     }

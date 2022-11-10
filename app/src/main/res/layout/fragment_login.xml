@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginMotion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    app:layoutDescription="@xml/fragment_login_scene2">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="50dp" />
 
         <TextView
+            android:id="@+id/tv_header_login"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginBottom="24dp"
             android:fontFamily="@font/mulish_extrabold_800"
             android:text="@string/txt_login_intro"
@@ -34,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:elevation="10dp"
+            android:labelFor="@id/edt_login_email"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
@@ -44,14 +50,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <id.heycoding.storysubmission.ui.auth.login.LoginEmailCustomView
+            <id.heycoding.storysubmission.ui.auth.customview.EmailCustomView
                 android:id="@+id/edt_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/mulish_semibold_600"
                 android:hint="@string/txt_email"
                 android:inputType="textEmailAddress"
-                android:textCursorDrawable="@color/purple_500" />
+                android:textCursorDrawable="@color/purple_500"
+                tools:ignore="SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -61,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:elevation="10dp"
+            android:labelFor="@id/edt_login_password"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
@@ -71,7 +79,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInputLayoutEmail">
 
-            <id.heycoding.storysubmission.ui.auth.login.LoginPasswordCustomView
+            <id.heycoding.storysubmission.ui.auth.customview.PasswordCustomView
                 android:id="@+id/edt_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,7 +87,7 @@
                 android:hint="@string/txt_password"
                 android:inputType="textPassword"
                 android:textCursorDrawable="@color/purple_500"
-                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -123,7 +131,7 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/bg_btn_primary"
         android:fontFamily="@font/mulish_bold_700"
         android:gravity="center"
@@ -134,4 +142,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

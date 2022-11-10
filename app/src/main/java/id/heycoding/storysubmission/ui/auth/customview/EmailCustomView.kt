@@ -1,4 +1,4 @@
-package id.heycoding.storysubmission.ui.auth.login
+package id.heycoding.storysubmission.ui.auth.customview
 
 import android.content.Context
 import android.graphics.Canvas
@@ -9,7 +9,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import id.heycoding.storysubmission.R
 
-class LoginEmailCustomView : AppCompatEditText {
+class EmailCustomView : AppCompatEditText {
     constructor(context: Context) : super(context) {
         init()
     }

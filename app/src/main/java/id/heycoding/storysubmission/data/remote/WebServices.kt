@@ -4,9 +4,14 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import id.heycoding.storysubmission.data.remote.response.auth.UserLoginResponse
 import id.heycoding.storysubmission.data.remote.response.auth.UserRegisterResponse
+import id.heycoding.storysubmission.data.remote.response.stories.AddStoryResponse
 import id.heycoding.storysubmission.data.remote.response.stories.StoryListResponse
+import io.reactivex.Observable
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,6 +40,14 @@ interface WebServices {
         @Header("Authorization") auth: String = TOKEN_SAMPLE
     ): StoryResponse<StoryListResponse>
 
+    @Multipart
+    @POST(EndPoint.Stories.GET_ALL_STORIES)
+    fun uploadStory(
+        @Header("Authorization") auth: String,
+        @Part file: MultipartBody.Part,
+        @Part("description") description: RequestBody,
+    ): StoryResponse<AddStoryResponse>
+
     companion object {
         private const val TOKEN_SAMPLE =
             "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWRLM0pZcnY1MWhkaFh4RmEiLCJpYXQiOjE2Njc3ODcyMTJ9.twKCJhU9Plxm3DEb5tEBHjLIDBxgQ7VRkz3Igw8eC5A"
@@ -56,7 +69,6 @@ interface WebServices {
 
         fun create(): WebServices {
             return Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(EndPoint.BASE_URL)
                 .client(okHttpClient)

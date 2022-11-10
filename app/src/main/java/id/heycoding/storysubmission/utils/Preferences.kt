@@ -9,17 +9,16 @@ import id.heycoding.storysubmission.utils.Const.Companion.STATE_KEY
 import id.heycoding.storysubmission.utils.Const.Companion.TOKEN_KEY
 import id.heycoding.storysubmission.utils.Const.Companion.USER_ID_KEY
 
-class UserLoginPreferences(context: Context) {
-    private val pref: SharedPreferences =
-        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+class Preferences(context: Context) {
+    private val pref: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     private val editor = pref.edit()
 
     fun setUserLogin(auth: AuthSession) {
         editor.apply {
-            putString(Const.NAME_KEY, auth.name)
-            putString(Const.TOKEN_KEY, auth.token)
-            putString(Const.USER_ID_KEY, auth.userId)
-            putBoolean(Const.STATE_KEY, auth.isLogin)
+            putString(NAME_KEY, auth.name)
+            putString(TOKEN_KEY, auth.token)
+            putString(USER_ID_KEY, auth.userId)
+            putBoolean(STATE_KEY, auth.isLogin)
             apply()
         }
     }
