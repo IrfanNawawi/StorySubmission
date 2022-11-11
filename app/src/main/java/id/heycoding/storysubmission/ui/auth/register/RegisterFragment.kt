@@ -26,7 +26,7 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         fragmentRegisterBinding = FragmentRegisterBinding.inflate(inflater, container, false)
         initVM()
         initPref()
@@ -96,8 +96,9 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun showLoading(isLoading : Boolean){
-        fragmentRegisterBinding?.pgRegister!!.visibility = if (isLoading) View.VISIBLE else View.GONE
+    private fun showLoading(isLoading: Boolean) {
+        fragmentRegisterBinding?.pgRegister!!.visibility =
+            if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showMessage(message: String) {

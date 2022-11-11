@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         fragmentLoginBinding = FragmentLoginBinding.inflate(inflater, container, false)
         initVM()
         initPref()
@@ -59,7 +58,7 @@ class LoginFragment : Fragment() {
         fragmentLoginBinding?.apply {
             btnLogin.setOnClickListener {
                 showLoading(true)
-                showMessage("Loging in, please wait")
+                showMessage("Sedang login, mohon tunggu")
                 validateAndLogin()
                 showLoading(false)
             }
@@ -102,12 +101,11 @@ class LoginFragment : Fragment() {
                         true
                     )
 
-                    Log.d("LoginFragment", "doLogin: $currentUser")
                     userLoginPref.setUserLogin(currentUser)
 
                     AlertDialog.Builder(requireContext()).apply {
-                        setTitle("Login Succesfully")
-                        setMessage("Logged in as ${it.name}!")
+                        setTitle("Login Berhasil")
+                        setMessage("Logged atas nama ${it.name}!")
                         setPositiveButton("Ok") { _, _ ->
                             (activity as MainActivity).moveToFragment(HomeFragment())
                         }

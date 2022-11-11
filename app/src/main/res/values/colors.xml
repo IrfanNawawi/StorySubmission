@@ -6,11 +6,6 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="bw_900">#424242</color>
-    <color name="bw_700">#4F4F4F</color>
-    <color name="bw_600">#828282</color>
-    <color name="bw_500">#BDBDBD</color>
-    <color name="bw_300">#E0E0E0</color>
-    <color name="bw_200">#F2F2F2</color>
+    <color name="bw_300">#A69F9F</color>
     <color name="bw_100">#FFFFFF</color>
 </resources>
