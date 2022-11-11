@@ -54,31 +54,26 @@ class RegisterFragment : Fragment() {
     private fun initView() {
         fragmentRegisterBinding?.apply {
             btnRegister.setOnClickListener {
-                showMessage("Didaftarkan")
-                showLoading(true)
                 validateAndRegister()
-                showLoading(false)
             }
         }
     }
 
     private fun validateAndRegister() {
-        when {
-            fragmentRegisterBinding?.edtRegisterUsername?.text!!.isBlank() -> {
-                fragmentRegisterBinding?.edtRegisterUsername!!.error = "Username tidak boleh kosong"
-                return
-            }
-            fragmentRegisterBinding?.edtRegisterEmail?.text!!.isBlank() -> {
-                fragmentRegisterBinding?.edtRegisterEmail!!.error = "Email tidak boleh kosong"
-                return
-            }
-            fragmentRegisterBinding?.edtRegisterPassword?.text!!.isBlank() -> {
-                fragmentRegisterBinding?.edtRegisterPassword!!.error = "Password tidak boleh kosong"
-                return
-            }
+        if (fragmentRegisterBinding?.edtRegisterUsername?.text!!.isBlank()){
+            fragmentRegisterBinding?.edtRegisterUsername!!.error = "Username tidak boleh kosong"
+            return
+        } else if (
+        fragmentRegisterBinding?.edtRegisterEmail?.text!!.isBlank()) {
+            fragmentRegisterBinding?.edtRegisterEmail!!.error = "Email tidak boleh kosong"
+            return
+        } else if (
+        fragmentRegisterBinding?.edtRegisterPassword?.text!!.isBlank()) {
+            fragmentRegisterBinding?.edtRegisterPassword!!.error = "Password tidak boleh kosong"
+            return
+        } else {
+            doRegister()
         }
-
-        doRegister()
     }
 
     private fun doRegister() {

@@ -57,10 +57,7 @@ class LoginFragment : Fragment() {
     private fun initView() {
         fragmentLoginBinding?.apply {
             btnLogin.setOnClickListener {
-                showLoading(true)
-                showMessage("Sedang login, mohon tunggu")
                 validateAndLogin()
-                showLoading(false)
             }
             tvRegister.setOnClickListener {
                 (activity as MainActivity).moveToFragment(RegisterFragment())
@@ -69,19 +66,15 @@ class LoginFragment : Fragment() {
     }
 
     private fun validateAndLogin() {
-        when {
-            fragmentLoginBinding?.edtLoginEmail?.text!!.isBlank() -> {
-                fragmentLoginBinding?.edtLoginEmail?.error = "Email tidak boleh kosong"
-                return
-            }
-            fragmentLoginBinding?.edtLoginPassword?.text!!.isBlank() -> {
-                fragmentLoginBinding?.edtLoginPassword!!.error = "Password tidak boleh kosong"
-                return
-            }
+        if (fragmentLoginBinding?.edtLoginEmail?.text!!.isBlank()) {
+            fragmentLoginBinding?.edtLoginEmail?.error = "Email tidak boleh kosong"
+            return
+        } else if (fragmentLoginBinding?.edtLoginPassword?.text!!.isBlank()) {
+            fragmentLoginBinding?.edtLoginPassword!!.error = "Password tidak boleh kosong"
+            return
+        } else {
+            doLogin()
         }
-
-        doLogin()
-
     }
 
     private fun doLogin() {
