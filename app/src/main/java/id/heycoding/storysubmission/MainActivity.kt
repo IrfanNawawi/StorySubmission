@@ -36,18 +36,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+        return when(item.itemId){
             R.id.logoutMenu -> {
                 doLogout()
                 true
             }
-            else -> {
-                return super.onOptionsItemSelected(item)
-            }
+            else -> {return super.onOptionsItemSelected(item)}
         }
     }
 
-    private fun doLogout() {
+    private fun doLogout(){
         userLoginPref.logout()
         moveToFragment(LoginFragment())
     }

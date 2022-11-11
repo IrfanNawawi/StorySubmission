@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         motion:duration="1000">
-        <KeyFrameSet></KeyFrameSet>
+       <KeyFrameSet>
+       </KeyFrameSet>
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -28,14 +30,6 @@
             android:layout_height="40dp"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="0dp" />
-        <Constraint
-            android:id="@+id/btn_login"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="16dp"
-            motion:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginBottom="16dp" />
     </ConstraintSet>
 </MotionScene>

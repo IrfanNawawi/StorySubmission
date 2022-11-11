@@ -24,7 +24,7 @@ class Preferences(context: Context) {
         }
     }
 
-    fun logout() {
+    fun logout(){
         editor.apply {
             remove(NAME_KEY)
             remove(TOKEN_KEY)
