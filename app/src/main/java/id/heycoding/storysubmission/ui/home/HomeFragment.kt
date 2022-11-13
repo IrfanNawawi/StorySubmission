@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
         homeStoryAdapter = HomeStoryAdapter()
         initViewModel()
         (activity as MainActivity).supportActionBar?.apply {
-            title = "STORIES"
+            title = "INSTAGAM"
             show()
         }
 
