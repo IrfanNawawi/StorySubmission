@@ -13,6 +13,7 @@ import id.heycoding.storysubmission.BuildConfig
 import id.heycoding.storysubmission.MainActivity
 import id.heycoding.storysubmission.databinding.FragmentRegisterBinding
 import id.heycoding.storysubmission.ui.auth.AuthViewModel
+import id.heycoding.storysubmission.ui.auth.login.LoginFragment
 import id.heycoding.storysubmission.ui.home.HomeFragment
 import id.heycoding.storysubmission.utils.Preferences
 
@@ -85,7 +86,7 @@ class RegisterFragment : Fragment() {
             doRegister(username, userEmail, userPassword)
             isError.observe(viewLifecycleOwner) {
                 if (it != true) {
-                    (activity as MainActivity).moveToFragment(HomeFragment())
+                    (activity as MainActivity).moveToFragment(LoginFragment())
                 }
             }
         }
