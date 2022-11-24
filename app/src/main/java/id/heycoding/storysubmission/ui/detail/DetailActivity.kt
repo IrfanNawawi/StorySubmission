@@ -5,13 +5,15 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import id.heycoding.storysubmission.databinding.ActivityDetailBinding
+import id.heycoding.storysubmission.databinding.ActivityMainBinding
 
 class DetailActivity : AppCompatActivity() {
     private var activityDetailBinding: ActivityDetailBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
-        setContentView(activityDetailBinding!!.root)
+        setContentView(activityDetailBinding?.root)
+
         supportActionBar?.hide()
         initView()
         showDetail()
@@ -20,11 +22,11 @@ class DetailActivity : AppCompatActivity() {
 
     private fun initView() {
         activityDetailBinding?.fabShowInfo?.setOnClickListener {
-            activityDetailBinding?.detailStoryContainer!!.visibility = View.VISIBLE
+            activityDetailBinding?.detailStoryContainer?.visibility = View.VISIBLE
         }
 
         activityDetailBinding?.tvDetailClose?.setOnClickListener {
-            activityDetailBinding?.detailStoryContainer!!.visibility = View.GONE
+            activityDetailBinding?.detailStoryContainer?.visibility = View.GONE
         }
     }
 

@@ -4,76 +4,30 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import id.heycoding.storysubmission.data.remote.WebServices
+import id.heycoding.storysubmission.data.remote.repository.Repository
 import id.heycoding.storysubmission.data.remote.response.auth.UserLoginResponse
 import id.heycoding.storysubmission.data.remote.response.auth.UserLoginResult
 import id.heycoding.storysubmission.data.remote.response.auth.UserRegisterResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class AuthViewModel : ViewModel() {
+@HiltViewModel
+class AuthViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val _userLogin = MutableLiveData<UserLoginResult>()
-    val userLogin: LiveData<UserLoginResult> = _userLogin
-
-    private val _isError = MutableLiveData<Boolean>()
-    val isError: LiveData<Boolean> = _isError
-
-    private val _message = MutableLiveData<String>()
-    val message: LiveData<String> = _message
-
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    private val services = WebServices.create()
+    val userLogin: LiveData<UserLoginResult> = repository.userLogin
+    val isError: LiveData<Boolean> = repository.isError
+    val message: LiveData<String> = repository.message
+    val isLoading: LiveData<Boolean> = repository.isLoading
 
     fun doLogin(email: String, password: String) {
-        _isLoading.value = true
-        services.loginUser(email, password)
-            .enqueue(object : Callback<UserLoginResponse> {
-                override fun onResponse(
-                    call: Call<UserLoginResponse>,
-                    response: Response<UserLoginResponse>
-                ) {
-                    _isLoading.value = false
-                    if (!response.isSuccessful) {
-                        _message.value = response.message()
-                    }
-                    _isError.value = response.body()?.error
-                    _message.value = response.body()?.message
-                    _userLogin.value = response.body()?.loginResult
-                }
-
-                override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
-                    _message.value = t.message
-                    _isLoading.value = false
-                    Log.i("LoginFragment", "subscribe: gagal lah")
-                }
-            })
+        repository.userLogin(email, password)
     }
 
     fun doRegister(name: String, email: String, password: String) {
-        _isLoading.value = true
-        services.registerUser(name, email, password)
-            .enqueue(object : Callback<UserRegisterResponse> {
-                override fun onResponse(
-                    call: Call<UserRegisterResponse>,
-                    response: Response<UserRegisterResponse>
-                ) {
-                    _isLoading.value = false
-                    if (!response.isSuccessful) {
-                        _message.value = response.message()
-                    }
-                    _isError.value = response.body()?.error
-                    _message.value = response.body()?.message
-                }
-
-                override fun onFailure(call: Call<UserRegisterResponse>, t: Throwable) {
-                    _message.value = t.message
-                    _isLoading.value = false
-                }
-
-            })
+        repository.userRegister(name, email, password)
     }
 }

@@ -33,47 +33,34 @@ interface WebServices {
         @Field("password") password: String
     ): Call<UserRegisterResponse>
 
-    @GET(EndPoint.Stories.GET_ALL_STORIES)
+    @GET(EndPoint.Stories.STORIES)
     fun getAllStories(
-        @Header("Authorization") auth: String = TOKEN_SAMPLE
+        @Header("Authorization") auth: String
     ): Call<StoryListResponse>
 
     @Multipart
-    @POST(EndPoint.Stories.GET_ALL_STORIES)
+    @POST(EndPoint.Stories.STORIES)
     fun uploadStory(
         @Header("Authorization") auth: String,
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
     ): Call<AddStoryResponse>
 
-    companion object {
-        private const val TOKEN_SAMPLE =
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLWRLM0pZcnY1MWhkaFh4RmEiLCJpYXQiOjE2Njc3ODcyMTJ9.twKCJhU9Plxm3DEb5tEBHjLIDBxgQ7VRkz3Igw8eC5A"
+    @GET(EndPoint.Stories.STORIES)
+    fun getAllStoriesWithLocation(
+        @Header("Authorization") auth: String,
+        @Query("location")location: Int
+    ): Call<StoryListResponse>
 
-        private val gson = GsonBuilder()
-            .setPrettyPrinting()
-            .setLenient()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .create()
-
-        private val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
-        private val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .build()
-
-        fun create(): WebServices {
-            return Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(EndPoint.BASE_URL)
-                .client(okHttpClient)
-                .build()
-                .create(WebServices::class.java)
-        }
-    }
+    @Multipart
+    @POST(EndPoint.Stories.STORIES)
+    fun uploadStoriesWithLocation(
+        @Header("Authorization") auth: String,
+        @Part file: MultipartBody.Part,
+        @Part("description") description: RequestBody,
+        @Part("lat")latitude: Float,
+        @Part("lon")longitude: Float
+    ): Call<AddStoryResponse>
 
     object EndPoint {
         const val BASE_URL = "https://story-api.dicoding.dev/v1/"
@@ -84,7 +71,7 @@ interface WebServices {
         }
 
         object Stories {
-            const val GET_ALL_STORIES = "stories"
+            const val STORIES = "stories"
         }
     }
 }

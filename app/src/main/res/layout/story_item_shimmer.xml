@@ -18,42 +18,42 @@
             android:id="@+id/story_image"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:background="@color/bw_300"
-            android:contentDescription="@string/txt_desc"
+            android:background="@color/bw_900"
+            android:contentDescription="@string/txt_image"
             android:transitionName="photo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_storyTitle"
+            android:id="@+id/tv_story_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
+            android:background="@color/bw_900"
+            android:textColor="@color/bw_900"
             android:textSize="24sp"
             android:textStyle="bold"
             android:transitionName="name"
-            android:textColor="@color/bw_300"
-            android:background="@color/bw_300"
             app:layout_constraintStart_toStartOf="@+id/story_image"
             app:layout_constraintTop_toBottomOf="@+id/story_image"
             tools:text="@string/txt_headline" />
 
         <TextView
-            android:id="@+id/tv_storyDesc"
+            android:id="@+id/tv_story_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@color/bw_900"
             android:maxLines="5"
-            android:textColor="@color/bw_300"
-            android:background="@color/bw_300"
+            android:textColor="@color/bw_900"
             android:transitionName="description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_storyTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tv_storyTitle"
+            app:layout_constraintStart_toStartOf="@+id/tv_story_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_story_title"
             tools:text="@string/txt_desc" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

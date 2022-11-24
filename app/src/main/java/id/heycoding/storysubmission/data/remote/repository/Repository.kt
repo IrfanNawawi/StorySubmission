@@ -3,11 +3,17 @@ package id.heycoding.storysubmission.data.remote.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import id.heycoding.storysubmission.data.local.entity.Story
 import id.heycoding.storysubmission.data.remote.WebServices
 import id.heycoding.storysubmission.data.remote.response.auth.UserLoginResponse
 import id.heycoding.storysubmission.data.remote.response.auth.UserLoginResult
 import id.heycoding.storysubmission.data.remote.response.auth.UserRegisterResponse
 import id.heycoding.storysubmission.data.remote.response.stories.AddStoryResponse
+import id.heycoding.storysubmission.data.remote.response.stories.StoryListResponse
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -34,10 +40,10 @@ class Repository @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-//    private val _storyList = MutableLiveData<List<Story>>()
-//    val storyList: LiveData<List<Story>> = _storyList
+    private val _storyList = MutableLiveData<List<Story>>()
+    val storyList: LiveData<List<Story>> = _storyList
 
-    fun doLogin(email: String, password: String) {
+    fun userLogin(email: String, password: String) {
         _isLoading.value = true
         services.loginUser(email, password)
             .enqueue(object : Callback<UserLoginResponse> {
@@ -57,12 +63,11 @@ class Repository @Inject constructor(
                 override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
                     _message.value = t.message
                     _isLoading.value = false
-                    Log.i("LoginFragment", "subscribe: gagal lah")
                 }
             })
     }
 
-    fun doRegister(name: String, email: String, password: String) {
+    fun userRegister(name: String, email: String, password: String) {
         _isLoading.value = true
         services.registerUser(name, email, password)
             .enqueue(object : Callback<UserRegisterResponse> {
@@ -86,7 +91,20 @@ class Repository @Inject constructor(
             })
     }
 
-    fun doUploadStoryLocation(
+    @OptIn(ExperimentalPagingApi::class)
+    fun getStoriesData(): LiveData<PagingData<Story>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            remoteMediator = StoryRemoteMediator(storyDatabase, service, pref),
+            pagingSourceFactory = {
+                storyDatabase.storyDao().getAllStory()
+            }
+        ).liveData
+    }
+
+    fun uploadStoryLocation(
         token: String,
         picture: File,
         storyDesc: String,
@@ -100,7 +118,7 @@ class Repository @Inject constructor(
             picture.name,
             pictureFile
         )
-        services.uploadStoryWithLocation(
+        services.uploadStoriesWithLocation(
             token,
             imageMultipart,
             description,
@@ -126,5 +144,56 @@ class Repository @Inject constructor(
             }
 
         })
+    }
+
+    fun uploadStory(token: String, picture: File, desc: String) {
+        val description = desc.toRequestBody("text/plain".toMediaType())
+        val pictureFile = picture.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "photo",
+            picture.name,
+            pictureFile
+        )
+        val service = services.uploadStory(token, imageMultipart, description)
+        service.enqueue(object : Callback<AddStoryResponse> {
+            override fun onResponse(
+                call: Call<AddStoryResponse>,
+                response: Response<AddStoryResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null && !responseBody.error) {
+                        _message.value = responseBody.message
+                    } else {
+                        _message.value = response.message()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<AddStoryResponse>, t: Throwable) {
+                _message.value = t.message
+            }
+        })
+    }
+
+    fun getStoriesWithLocation(token: String) {
+        services.getAllStoriesWithLocation(token, 1)
+            .enqueue(object : Callback<StoryListResponse> {
+                override fun onResponse(
+                    call: Call<StoryListResponse>,
+                    response: Response<StoryListResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _storyList.postValue(response.body()?.listStory)
+                        _message.postValue(response.body()?.message)
+                    } else {
+                        _message.postValue(response.message())
+                    }
+                }
+
+                override fun onFailure(call: Call<StoryListResponse>, t: Throwable) {
+                    _message.postValue(t.message)
+                }
+            })
     }
 }

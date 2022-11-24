@@ -7,16 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import id.heycoding.storysubmission.MainActivity
 import id.heycoding.storysubmission.databinding.FragmentHomeBinding
 import id.heycoding.storysubmission.ui.story.AddStoryActivity
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var fragmentHomeBinding: FragmentHomeBinding? = null
-    private lateinit var homeViewModel: HomeViewModel
-
+    private val homeViewModel by viewModels<HomeViewModel>()
     private lateinit var homeStoryAdapter: HomeStoryAdapter
 
     override fun onCreateView(
@@ -25,34 +27,24 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         fragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
-
         return fragmentHomeBinding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeStoryAdapter = HomeStoryAdapter()
-        initViewModel()
+
         (activity as MainActivity).supportActionBar?.apply {
             title = "INSTAGAM"
             show()
         }
 
         initView()
+        initViewModel()
     }
 
     private fun initViewModel() {
-        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-
-        homeViewModel.apply {
-
-            getAllStoriesData((activity as MainActivity).userLoginPref.getLoginData().token)
-            listStoryData.observe(requireActivity()) {
-                if (it != null) {
-                    homeStoryAdapter.setStoryData(it)
-                }
-            }
-        }
+        homeViewModel.
     }
 
     private fun initView() {

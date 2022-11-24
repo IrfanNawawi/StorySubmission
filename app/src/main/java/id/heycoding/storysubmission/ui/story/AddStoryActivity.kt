@@ -138,56 +138,56 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun uploadStory() {
-        if (getFile != null) {
-            val file = reduceFileImage(getFile as File)
-            val descriptionText = activityAddStoryBinding.edtDesc.text.toString()
-            val description = descriptionText.toRequestBody("text/plain".toMediaType())
-            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "photo",
-                file.name,
-                requestImageFile
-            )
-
-            val token = "Bearer ${userLoginPref.getLoginData().token}"
-            val service = WebServices.create().uploadStory(token, imageMultipart, description)
-            service.enqueue(object : Callback<AddStoryResponse> {
-                override fun onResponse(
-                    call: Call<AddStoryResponse>,
-                    response: Response<AddStoryResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-                        if (responseBody != null && !responseBody.error) {
-                            Toast.makeText(
-                                this@AddStoryActivity,
-                                response.message(),
-                                Toast.LENGTH_LONG
-                            ).show()
-                            onBackPressed()
-                        } else {
-                            Toast.makeText(
-                                this@AddStoryActivity,
-                                response.message(),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<AddStoryResponse>, t: Throwable) {
-                    Toast.makeText(this@AddStoryActivity, t.message.toString(), Toast.LENGTH_LONG)
-                        .show()
-                }
-
-            })
-        } else {
-            Toast.makeText(
-                this@AddStoryActivity,
-                "Silahkan masukkan gambar terlebih dahulu.",
-                Toast.LENGTH_LONG
-            ).show()
-        }
+//        if (getFile != null) {
+//            val file = reduceFileImage(getFile as File)
+//            val descriptionText = activityAddStoryBinding.edtDesc.text.toString()
+//            val description = descriptionText.toRequestBody("text/plain".toMediaType())
+//            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+//            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+//                "photo",
+//                file.name,
+//                requestImageFile
+//            )
+//
+//            val token = "Bearer ${userLoginPref.getLoginData().token}"
+//            val service = WebServices.create().uploadStory(token, imageMultipart, description)
+//            service.enqueue(object : Callback<AddStoryResponse> {
+//                override fun onResponse(
+//                    call: Call<AddStoryResponse>,
+//                    response: Response<AddStoryResponse>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val responseBody = response.body()
+//                        if (responseBody != null && !responseBody.error) {
+//                            Toast.makeText(
+//                                this@AddStoryActivity,
+//                                response.message(),
+//                                Toast.LENGTH_LONG
+//                            ).show()
+//                            onBackPressed()
+//                        } else {
+//                            Toast.makeText(
+//                                this@AddStoryActivity,
+//                                response.message(),
+//                                Toast.LENGTH_LONG
+//                            ).show()
+//                        }
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<AddStoryResponse>, t: Throwable) {
+//                    Toast.makeText(this@AddStoryActivity, t.message.toString(), Toast.LENGTH_LONG)
+//                        .show()
+//                }
+//
+//            })
+//        } else {
+//            Toast.makeText(
+//                this@AddStoryActivity,
+//                "Silahkan masukkan gambar terlebih dahulu.",
+//                Toast.LENGTH_LONG
+//            ).show()
+//        }
 
     }
 

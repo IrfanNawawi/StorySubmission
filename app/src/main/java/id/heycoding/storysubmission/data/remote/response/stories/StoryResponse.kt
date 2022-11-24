@@ -1,6 +1,7 @@
 package id.heycoding.storysubmission.data.remote.response.stories
 
 import com.google.gson.annotations.SerializedName
+import id.heycoding.storysubmission.data.local.entity.Story
 
 data class StoryListResponse(
     @field:SerializedName("error")
@@ -10,7 +11,7 @@ data class StoryListResponse(
     val message: String,
 
     @field:SerializedName("listStory")
-    val listStory: List<StoryItem>
+    val listStory: List<Story>
 )
 
 data class AddStoryResponse(

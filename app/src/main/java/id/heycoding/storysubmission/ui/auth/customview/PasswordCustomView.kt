@@ -11,6 +11,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.widget.doOnTextChanged
 
 class PasswordCustomView : AppCompatEditText {
     constructor(context: Context) : super(context) {
@@ -31,21 +32,11 @@ class PasswordCustomView : AppCompatEditText {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun init() {
-        addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
+        doOnTextChanged { text, _, _, _ ->
+            if (text?.length!! < 6) {
+                error = "Password harus 6 karakter"
             }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length!! < 6) {
-                    error = "Password harus 6 karakter"
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-        })
+        }
 
         //Show Hide Password
         setOnTouchListener { _, event ->

@@ -114,17 +114,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/pg_login"
-        android:layout_width="1dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/btn_login"
         android:layout_width="0dp"

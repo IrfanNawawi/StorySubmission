@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.widget.doOnTextChanged
 import id.heycoding.storysubmission.R
 
 class EmailCustomView : AppCompatEditText {
@@ -27,22 +28,11 @@ class EmailCustomView : AppCompatEditText {
     }
 
     private fun init() {
-        addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        doOnTextChanged { text, _, _, _ ->
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(text.toString()).matches()) {
+                error = context.getString(R.string.txt_email_invalid)
             }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(s!!).matches()) {
-                    error = context.getString(R.string.txt_email_invalid)
-                }
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-        })
-
+        }
     }
 
     override fun onDraw(canvas: Canvas?) {
